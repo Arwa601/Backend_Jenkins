@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  app:
+    image: openjdk:17-jdk-slim
+    container_name: my_java_app
+    build:
+      context: .
+    ports:
+      - "80:80"
+    volumes:
+      - ./app:/app
+    networks:
+      - mynetwork
+    depends_on:
+      - dbmongo
+
+  dbmongo:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - mynetwork
+
+  jenkins:
+    image: jenkins/jenkins:2.462.3-jdk17
+    container_name: jenkins_server
+    user: root
+    ports:
+      - "8081:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+    networks:
+      - jenkins
+
+    depends_on:
+      - app
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+volumes:
+  jenkins_home:
+  mongo_data:
+  app:
+
+networks:
+
+  mynetwork:
+    driver: bridge
+  jenkins:
