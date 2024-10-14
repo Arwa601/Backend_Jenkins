@@ -5,7 +5,7 @@ pipeline {
             DOCKER_COMPOSE_FILE = 'docker-compose.yml'
         }
     triggers{
-    pollSCM '*5/* * * * *'
+    pollSCM '*1/* * * * *'
     }
     stages {
 
