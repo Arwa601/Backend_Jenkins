@@ -18,7 +18,7 @@ pipeline {
     stage('Checkout') {
             steps {
 
-                git credentialsId: '637388a3-3aca-451c-9ae2-01393e38768e', url: 'git@github.com:https://github.com/Arwa601/Backend_Jenkins.git',git branch: 'main'
+                git credentialsId: '637388a3-3aca-451c-9ae2-01393e38768e', url: 'git@github.com:https://github.com/Arwa601/Backend_Jenkins.git', branch: 'main'
             }
         }
 
