@@ -7,7 +7,6 @@ pipeline {
         pollSCM '*/1 * * * *'
     }
     stages {
-
         stage('Check Java Version') {
             steps {
                 sh 'java -version'
@@ -17,7 +16,6 @@ pipeline {
 
         stage('Checkout') {  //pull changes
             steps {
-
                 git credentialsId: '637388a3-3aca-451c-9ae2-01393e38768e', url: 'https://github.com/Arwa601/Backend_Jenkins', branch: 'main'
             }
         }
