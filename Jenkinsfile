@@ -60,11 +60,11 @@ pipeline {
                 }
             }
         }}
-    post {
+      post {
         always {
 
             sh 'docker rmi ${DOCKER_IMAGE}:${BRANCH}'
             cleanWs()
         }
-    }
-}
+      }
+
