@@ -59,7 +59,7 @@ pipeline {
                     sh 'docker-compose -f $DOCKER_COMPOSE_FILE down'
                 }
             }
-        }
+        }}
     post {
         always {
 
