@@ -15,10 +15,10 @@ pipeline {
             }
         }
 
-        stage('Checkout') {
+        stage('Checkout') {  //pull changes
             steps {
 
-                git credentialsId: '637388a3-3aca-451c-9ae2-01393e38768e', url: 'git@github.com:Arwa601/Backend_Jenkins.git', branch: 'main'
+                git credentialsId: '637388a3-3aca-451c-9ae2-01393e38768e', url: 'https://github.com/Arwa601/Backend_Jenkins', branch: 'main'
             }
         }
 
