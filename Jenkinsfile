@@ -21,11 +21,14 @@ pipeline {
         }
 
         stage('Build Docker Images') {
-            steps {
-                script {
-                     sh 'docker-compose -f ${DOCKER_COMPOSE_FILE} build'
-                }
-            }
+
+                       steps {
+                            dockerComposeBuild(
+                                yamlPath: '${DOCKER_COMPOSE_FILE}',
+                                services: ['app','dbmongo','jenkins'],
+                                options: ''
+                            )
+                        }
         }
 
         stage('Run Services') {
