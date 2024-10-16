@@ -22,11 +22,7 @@ pipeline {
 
         stage('Build Docker Images') {
               steps {
-                   dockerComposeBuild(
-                        yamlPath: '${DOCKER_COMPOSE_FILE}',
-                        services: ['app','dbmongo','jenkins'],
-                        options: ''
-                            )
+                   dockerComposeBuild services: ['app','dbmongo','jenkins'], options: ''
               }
         }
 
