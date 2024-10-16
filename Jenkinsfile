@@ -19,11 +19,6 @@ pipeline {
                 git credentialsId: '637388a3-3aca-451c-9ae2-01393e38768e', url: 'https://github.com/Arwa601/Backend_Jenkins', branch: 'main'
             }
         }
-        stage('Check Docker Compose Version') {
-            steps {
-                sh 'docker-compose --version'
-            }
-        }
 
         stage('Build Docker Images') {
             steps {
