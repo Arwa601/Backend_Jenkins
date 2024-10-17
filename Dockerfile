@@ -1,12 +1,11 @@
-FROM jenkins/jenkins:2.462.3-jdk17
-USER root
-RUN apt-get update && apt-get install -y lsb-release
-RUN curl -fsSLo /usr/share/keyrings/docker-archive-keyring.asc \
-  https://download.docker.com/linux/debian/gpg
-RUN echo "deb [arch=$(dpkg --print-architecture) \
-  signed-by=/usr/share/keyrings/docker-archive-keyring.asc] \
-  https://download.docker.com/linux/debian \
-  $(lsb_release -cs) stable" > /etc/apt/sources.list.d/docker.list
-RUN apt-get update && apt-get install -y docker-ce-cli
-USER jenkins
-RUN jenkins-plugin-cli --plugins "blueocean docker-workflow"
+FROM maven:3.8.5-openjdk-17 AS build
+COPY src /home/app/src
+COPY pom.xml /home/app
+RUN mvn -f /home/app/pom.xml clean package -DskipTests
+
+
+
+FROM openjdk:17-alpine  AS production
+ARG JAR_FILE=/home/app/target/mongo-demo-0.0.1-SNAPSHOT.jar
+COPY --from=build ${JAR_FILE} application.jar
+ENTRYPOINT ["java", "-jar", "appl.0.0.0.0.0.0.0ication.jar"]
