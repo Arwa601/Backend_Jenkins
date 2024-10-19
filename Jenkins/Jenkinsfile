@@ -22,9 +22,10 @@ pipeline {
 
       stage('Build Docker Images') {
           steps {
-              sh '''
-              docker compose build app dbmongo
-              '''
+              sh 'mvn clean package -DskipTests'
+              sh 'docker compose build app dbmongo'
+
+
           }
       }
 
