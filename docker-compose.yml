@@ -4,8 +4,8 @@ services:
     image: openjdk:17-jdk-slim
     container_name: my_java_app
     build:
-      context: .
-      dockerfile: .\Dockerfile
+      context: /c/Users/Arwa-PC/Desktop/Projects/Backend_Jenkins
+      dockerfile: /c/Users/Arwa-PC/Desktop/Projects/Backend_Jenkins/Dockerfile
     ports:
       - "80:80"
     volumes:
