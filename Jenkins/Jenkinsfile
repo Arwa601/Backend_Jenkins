@@ -20,12 +20,13 @@ pipeline {
             }
         }
 
-        stage('Build Docker Images') {
-              steps {
-
-                   dockerComposeBuild services: ['app','dbmongo'], options: ''
-              }
-        }
+      stage('Build Docker Images') {
+          steps {
+              sh '''
+              docker-compose build app dbmongo
+              '''
+          }
+      }
 
         stage('Run Services') {
             steps {
