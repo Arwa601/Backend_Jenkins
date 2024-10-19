@@ -22,7 +22,7 @@ pipeline {
 
         stage('Build Docker Images') {
               steps {
-                   cd Backend_Jenkins\docker-compose.yml
+
                    dockerComposeBuild services: ['app','dbmongo'], options: ''
               }
         }
