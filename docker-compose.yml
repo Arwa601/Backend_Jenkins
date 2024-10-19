@@ -4,12 +4,13 @@ services:
     image: openjdk:17-jdk-slim
     container_name: my_java_app
     build:
-      context: /c/Users/Arwa-PC/Desktop/Projects/Backend_Jenkins
-      dockerfile: /c/Users/Arwa-PC/Desktop/Projects/Backend_Jenkins/Dockerfile
+      context: .
+      dockerfile: ./Dockerfile
     ports:
       - "80:80"
     volumes:
-      - ./app:/app
+      - ./src:/app/src
+      - ./target:/app/target
     networks:
       - mynetwork
     depends_on:
@@ -27,8 +28,8 @@ services:
 
 volumes:
   mongo_data:
-  app:
-
+  src:
+  target:
 networks:
 
   mynetwork:
