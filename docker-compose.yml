@@ -1,4 +1,3 @@
-version: '3.8'
 
 services:
   app:
@@ -6,7 +5,7 @@ services:
     container_name: my_java_app
     build:
       context: .
-      dockerfile: Backend_Jenkins\Dockerfile
+      dockerfile: .\Dockerfile
     ports:
       - "80:80"
     volumes:
