@@ -23,7 +23,7 @@ pipeline {
       stage('Build Docker Images') {
           steps {
               sh '''
-              docker-compose build app dbmongo
+              docker compose build app dbmongo
               '''
           }
       }
@@ -32,7 +32,7 @@ pipeline {
             steps {
                 script {
 
-                    sh 'docker-compose -f ${DOCKER_COMPOSE_FILE} up -d'
+                    sh 'docker compose -f ${DOCKER_COMPOSE_FILE} up -d'
                 }
             }
         }
@@ -49,16 +49,16 @@ pipeline {
         stage('Clean Up') {
             steps {
                 script {
-                    sh 'docker-compose -f ${DOCKER_COMPOSE_FILE} down'
+                    sh 'docker compose -f ${DOCKER_COMPOSE_FILE} down'
                 }
             }
         }
     }
 
-    /*post {
+    post {
         always {
             sh 'docker rmi ${DOCKER_IMAGE}:${BRANCH}'
             cleanWs()
         }
-    }*/
+    }
 }
