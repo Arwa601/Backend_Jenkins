@@ -41,28 +41,20 @@ pipeline {
             }
         }
 
-       /*stage('Deploy') {
-            steps {
-                script {
-                    sh 'docker-compose down'
-                    sh 'docker-compose up -d'
-                }
-            }
-        }*/
+         stage('Push to docker hub'){
+            steps{
+                script{
+                    withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhub')]) {
 
-        stage('Clean Up') {
-            steps {
-                script {
-                    sh 'docker compose -f ${DOCKER_COMPOSE_FILE} down'
+                    sh 'docker login -u arwa409 -p ${dockerhub} docker.io'
+                }
+                    sh 'docker push openjdk:17-jdk-slim'
+                    sh 'docker push mongo:latest'
+
                 }
             }
         }
-    }
 
-    post {
-        always {
-            sh 'docker rmi ${DOCKER_IMAGE}:${BRANCH}'
-            cleanWs()
-        }
+
     }
 }
