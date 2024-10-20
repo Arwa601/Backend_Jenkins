@@ -41,21 +41,24 @@ pipeline {
             }
         }
 
-        stage('Push to docker hub') {
-            steps {
-                script {
-                    withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                        sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
-                    }
-                    sh 'docker tag my_java17_app $DOCKER_USERNAME/my_java17_app'
-                    sh 'docker tag mongo:latest $DOCKER_USERNAME/mongo:latest'
-                    sh 'docker push $DOCKER_USERNAME/my_java17_app'
-                    sh 'docker push $DOCKER_USERNAME/mongo:latest'
-                    sh 'docker logout'
-                }
-            }
-        }
+       stage('Push to Docker Hub') {
+           steps {
+               script {
+                   // Login to Docker Hub using credentials stored in Jenkins
+                   withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                       sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
+                   }
 
-    }
+                   sh 'docker tag my_java17_app:latest $DOCKER_USERNAME/my_java17_app:latest'
+                   sh 'docker tag mongo:latest $DOCKER_USERNAME/mongo:latest'
+
+                   sh 'docker push $DOCKER_USERNAME/my_java17_app:latest'
+                   sh 'docker push $DOCKER_USERNAME/mongo:latest'
+
+                   sh 'docker logout'
+               }
+           }
+       }
+
 
  }
