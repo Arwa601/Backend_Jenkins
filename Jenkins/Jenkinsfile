@@ -46,12 +46,11 @@ pipeline {
                 script{
                     withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhub')]) {
 
-                    sh 'docker login -u arwa409 -p ${dockerhub} docker.io'
+                    sh "echo $DOCKERHUB_TOKEN | docker login -u arwa409 --password-stdin"
                 }
                     sh 'docker push openjdk:17-jdk-slim'
                     sh 'docker push mongo:latest'
-
-                }
+                    sh 'docker logout'
             }
         }
 
