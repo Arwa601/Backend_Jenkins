@@ -6,4 +6,4 @@ FROM openjdk:17-alpine  AS production
 ARG JAR_FILE=/home/app/target/crud-0.0.1-SNAPSHOT.ja
 
 COPY --from=build ${JAR_FILE} application.jar
-ENTRYPOINT ["java", "-jar", "appl.0.0.0.0.0.0.0ication.jar"]
+ENTRYPOINT ["java", "-jar", "application.jar"]
