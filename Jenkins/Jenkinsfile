@@ -52,8 +52,9 @@ pipeline {
                  sh 'docker push openjdk:17-jdk-slim'
                  sh 'docker push mongo:latest'
                  sh 'docker logout'
-
-                 }
+                }
             }
         }
     }
+
+ }
