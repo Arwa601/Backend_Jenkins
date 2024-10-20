@@ -46,14 +46,14 @@ pipeline {
                script {
                    // Login to Docker Hub using credentials stored in Jenkins
                    withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                       sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
+                       sh "echo $DOCKER_PASSWORD | docker login -u arwa409 --password-stdin"
                    }
 
-                   sh 'docker tag my_java17_app:latest $DOCKER_USERNAME/my_java17_app:latest'
-                   sh 'docker tag mongo:latest $DOCKER_USERNAME/mongo:latest'
+                   sh 'docker tag my_java17_app:latest arwa409/my_java17_app:latest'
+                   sh 'docker tag mongo:latest arwa409/mongo:latest'
 
-                   sh 'docker push $DOCKER_USERNAME/my_java17_app:latest'
-                   sh 'docker push $DOCKER_USERNAME/mongo:latest'
+                   sh 'docker push arwa409/my_java17_app:latest'
+                   sh 'docker push arwa409/mongo:latest'
 
                    sh 'docker logout'
                }
