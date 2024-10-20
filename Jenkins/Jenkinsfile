@@ -43,18 +43,18 @@ pipeline {
 
         stage('Push to docker hub') {
             steps {
-                 script {
-                     withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhub')]) {
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                        sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
+                    }
 
-                      sh "echo $DOCKERHUB_TOKEN | docker login -u arwa409 --password-stdin"
-                 }
-
-                 sh 'docker push openjdk:17-jdk-slim'
-                 sh 'docker push mongo:latest'
-                 sh 'docker logout'
+                    sh 'docker push openjdk:17-jdk-slim'
+                    sh 'docker push mongo:latest'
+                    sh 'docker logout'
                 }
             }
         }
+
     }
 
  }
