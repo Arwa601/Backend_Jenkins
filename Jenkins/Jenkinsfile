@@ -22,7 +22,16 @@ pipeline {
                 git credentialsId: '00445cc6-fdbd-4c9d-a46c-743ce3a67806', url: 'https://github.com/Arwa601/Backend_Jenkins', branch: 'main'
             }
         }
+       stage ('Scan and Build Jar File')
 
+                   steps{
+
+                      withSonarQubeEnv(installationName: 'Production sonarQubeScanner', credentialsId: 'SonarQube_token')
+
+                       sh 'mvn clean package sonar:sonar'
+
+                       }
+        }
       stage('Build Docker Images') {
           steps {
               sh 'mvn clean package -DskipTests'
