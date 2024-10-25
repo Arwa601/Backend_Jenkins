@@ -1,6 +1,6 @@
+version: '3.8'  # Assurez-vous de spécifier la version
 
 services:
-
   app:
     image: my_java17_app
     container_name: my_java_app
@@ -36,8 +36,7 @@ volumes:
   mysql_data:
   src:
   target:
-networks:
 
+networks:
   mynetwork:
     driver: bridge
-jenkins:
