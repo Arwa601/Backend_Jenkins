@@ -26,7 +26,7 @@ pipeline {
         stage('Build Docker Images') {
             steps {
                 sh 'mvn clean package -DskipTests'
-                sh 'docker compose build app dbmongo'
+                sh 'docker compose build app dbmysql'
             }
         }
 
@@ -44,10 +44,11 @@ pipeline {
                     }
 
                     sh 'docker tag my_java17_app:latest arwa409/my_java17_app:latest'
-                    sh 'docker tag mongo:latest arwa409/mongo:latest'
+                    sh 'docker tag mongo:latest arwa409/mysql:latest'
 
                     sh 'docker push arwa409/my_java17_app:latest'
-                    sh 'docker push arwa409/mongo:latest'
+                    sh 'docker push arwa409/mysql:latest'
+
 
                     sh 'docker logout'
                 }
