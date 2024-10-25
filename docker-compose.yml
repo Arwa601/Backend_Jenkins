@@ -1,4 +1,3 @@
-version: '3.8'  # Assurez-vous de spécifier la version
 
 services:
   app:
