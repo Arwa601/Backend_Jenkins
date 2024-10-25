@@ -23,14 +23,6 @@ pipeline {
             }
         }
 
-        stage('Scan and Build Jar File') {
-            steps {
-                withSonarQubeEnv('Production sonarQubeScanner') {
-                    sh 'mvn clean package sonar:sonar'
-                }
-            }
-        }
-
         stage('Build Docker Images') {
             steps {
                 sh 'mvn clean package -DskipTests'
