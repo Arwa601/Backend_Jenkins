@@ -22,7 +22,6 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: gte
       MYSQL_DATABASE: gpro
-      MYSQL_USER: root
       MYSQL_PASSWORD: gte
     ports:
       - "3306:3306"

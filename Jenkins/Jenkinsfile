@@ -49,7 +49,7 @@ pipeline {
                     }
 
                     sh 'docker tag my_java17_app:latest arwa409/my_java17_app:latest'
-                    sh 'docker tag mongo:latest arwa409/mysql:latest'
+                    sh 'docker tag mysql:latest arwa409/mysql:latest'
 
                     sh 'docker push arwa409/my_java17_app:latest'
                     sh 'docker push arwa409/mysql:latest'
