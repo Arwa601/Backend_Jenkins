@@ -22,6 +22,23 @@ pipeline {
                 git credentialsId: '00445cc6-fdbd-4c9d-a46c-743ce3a67806', url: 'https://github.com/Arwa601/Backend_Jenkins', branch: 'main'
             }
         }
+        stage("Sonarqube Analysis "){
+                            steps{
+                                withSonarQubeEnv('sonar-server') {
+                                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Backend_Jenkins \
+                                    -Dsonar.java.binaries=. \
+                                    -Dsonar.projectKey=Backend_Jenkins '''
+                                }
+                            }
+                        }
+                        stage("quality gate"){
+                            steps {
+                                script {
+                                  waitForQualityGate abortPipeline: false, credentialsId: 'SonarQubeToken'
+                                }
+                           }
+         }
+
 
         stage('Build Docker Images') {
             steps {
