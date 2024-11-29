@@ -25,11 +25,11 @@ pipeline {
 
         stage('Scan and Build Jar File') {
             steps {
-                catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE')
+                catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE'){
                 withSonarQubeEnv(installationName: 'Production sonarQubeScanner', credentialsId: 'SonarQubeToken') {
                     sh 'mvn clean package sonar:sonar'
                 }
-            }
+            }}
         }
 
         stage('Build Docker Images') {
