@@ -23,15 +23,13 @@ pipeline {
             }
         }
 
-        stage ('Scan and Build Jar File')
-
-                  steps {
-
-                         withSonarQubeEnv(installationName: 'Production sonarQubeScanner', credentialsId: 'SonarQubeToken')
-
-                         sh 'mvn clean package sonar:sonar'}
-         }
-
+        stage('Scan and Build Jar File') {
+            steps {
+                withSonarQubeEnv(installationName: 'Production sonarQubeScanner', credentialsId: 'SonarQubeToken') {
+                    sh 'mvn clean package sonar:sonar'
+                }
+            }
+        }
 
         stage('Build Docker Images') {
             steps {
@@ -45,11 +43,12 @@ pipeline {
                 sh 'docker compose -f ${DOCKER_COMPOSE_FILE} up --remove-orphans -d'
             }
         }
-        stage('check containers') {
-                    steps {
-                        sh 'docker ps -a'
-                    }
-                }
+
+        stage('Check Containers') {
+            steps {
+                sh 'docker ps -a'
+            }
+        }
 
         stage('Push to Docker Hub') {
             steps {
@@ -57,7 +56,6 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                         sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
                     }
-
                     sh 'docker tag my_java17_app:latest arwa409/my_java17_app:latest'
                     sh 'docker tag mysql:latest arwa409/mysql:latest'
                     sh 'docker push arwa409/my_java17_app:latest'
