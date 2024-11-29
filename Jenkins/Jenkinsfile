@@ -25,9 +25,9 @@ pipeline {
         stage("Sonarqube Analysis "){
                             steps{
                                 withSonarQubeEnv('sonar-server') {
-                                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Backend_Jenkins \
+                                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=backend-java \
                                     -Dsonar.java.binaries=. \
-                                    -Dsonar.projectKey=Backend_Jenkins '''
+                                    -Dsonar.projectKey=backend-java '''
                                 }
                             }
                         }
